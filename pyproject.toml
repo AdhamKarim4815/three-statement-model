@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "three-statement-model"
+version = "1.0.0"
+description = "Integrated three-statement forecasting model: Python engine, CLI and a live-formula Excel workbook (fictional company)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Adham Karim" }]
+keywords = ["financial-modeling", "three-statement-model", "excel", "forecasting", "corporate-finance"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Topic :: Office/Business :: Financial",
+]
+dependencies = ["xlsxwriter>=3.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "openpyxl>=3.1", "ruff>=0.5"]
+
+[project.scripts]
+three-statement = "three_statement.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["libreoffice: needs a LibreOffice (soffice) install to recalculate the workbook"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "C4", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
